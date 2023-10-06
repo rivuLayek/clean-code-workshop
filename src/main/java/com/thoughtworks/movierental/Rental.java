@@ -37,10 +37,10 @@ public class Rental {
         return thisAmount;
     }
 
-    public int bonusRenterPoints() {
+    public int renterPoints() {
         if ((movie.getPriceCode() == Movie.NEW_RELEASE)
                 &&
-                daysRented > 1) return 1;
-        return 0;
+                daysRented > 1) return 2;
+        return 1;
     }
 }

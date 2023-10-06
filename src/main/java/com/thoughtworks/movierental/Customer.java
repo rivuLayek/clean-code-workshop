@@ -20,24 +20,78 @@ public class Customer {
     }
 
     public String statement() {
-        double totalAmount = 0;
-        int frequentRenterPoints = 0;
-        String result = "Rental Record for " + getName() + "\n";
-        for (Rental rental : rentals) {
-            double amount = rental.amount();
-            frequentRenterPoints++;
-            frequentRenterPoints += rental.bonusRenterPoints();
+        return header() + body() + footer();
+    }
 
-            //show figures for this rental
-            result += "\t" + rental.getMovie().getTitle() + "\t" +
-                    amount + "\n";
-            totalAmount += amount;
+    public String htmlStatement() {
+        return "<!DOCTYPE html>\n" +
+                "<html lang=\"en\">\n" +
+                "<head>\n" +
+                "    <meta charset=\"UTF-8\" />\n" +
+                "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n" +
+                "    <title>Document</title>\n" +
+                "</head>\n" +
+                "<body>\n" +
+                htmlHeader() +
+                htmlBody() +
+                htmlFooter()+
+                "</body>\n" +
+                "</html>\n";
+    }
+
+    private String htmlFooter() {
+        return "<div>Amount owed is <b>" + getTotalAmount()+ "</b></div>\n" +
+                "<div>You earned <b>" + getFrequentRenterPoints() +"</b> frequent renter points</div>\n";
+    }
+
+    private String htmlBody() {
+        String result = "<table>\n";
+        for( Rental rental : rentals ) {
+            result += "<tr>\n<td>" + rental.getMovie().getTitle() + "&emsp;</td>\n<td>" + rental.amount() + "</td>\n</tr>\n";
         }
+        return result + "</table>\n";
+    }
 
-        //add footer lines result
+    private String htmlHeader() {
+        return "<h1>Rental Record for <b>"+ getName() +"</b></h1>\n";
+    }
+
+    private String footer() {
+        String result = "";
+        double totalAmount = getTotalAmount();
+        int totalFrequentRenterPoints = getFrequentRenterPoints();
         result += "Amount owed is " + totalAmount + "\n";
-        result += "You earned " + frequentRenterPoints
+        result += "You earned " + totalFrequentRenterPoints
                 + " frequent renter points";
         return result;
+    }
+
+    private String body() {
+        String result = "";
+        for (Rental rental : rentals) {
+            result += "\t" + rental.getMovie().getTitle() + "\t" +
+                    rental.amount() + "\n";
+        }
+        return result;
+    }
+
+    private String header() {
+        return "Rental Record for " + getName() + "\n";
+    }
+
+    private int getFrequentRenterPoints() {
+        int frequentRenterPoints = 0;
+        for (Rental rental : rentals) {
+                frequentRenterPoints += rental.renterPoints();
+            }
+        return frequentRenterPoints;
+    }
+
+    private double getTotalAmount() {
+        double totalAmount = 0;
+        for (Rental rental : rentals) {
+            totalAmount += rental.amount();
+        }
+        return totalAmount;
     }
 }
