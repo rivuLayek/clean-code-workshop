@@ -26,7 +26,7 @@ public class Customer {
         for (Rental rental : rentals) {
             double amount = rental.amount();
             frequentRenterPoints++;
-            frequentRenterPoints += rental.renterPoints();
+            frequentRenterPoints += rental.bonusRenterPoints();
 
             //show figures for this rental
             result += "\t" + rental.getMovie().getTitle() + "\t" +
