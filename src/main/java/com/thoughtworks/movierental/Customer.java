@@ -20,7 +20,7 @@ public class Customer {
     }
 
     public String statement() {
-        return header() + body() + footer();
+        return new TextStatement(getTotalAmount(), getFrequentRenterPoints(), Customer.this.rentals, getName()).generate();
     }
 
     public String htmlStatement() {
@@ -56,29 +56,6 @@ public class Customer {
         return "<h1>Rental Record for <b>"+ getName() +"</b></h1>\n";
     }
 
-    private String footer() {
-        String result = "";
-        double totalAmount = getTotalAmount();
-        int totalFrequentRenterPoints = getFrequentRenterPoints();
-        result += "Amount owed is " + totalAmount + "\n";
-        result += "You earned " + totalFrequentRenterPoints
-                + " frequent renter points";
-        return result;
-    }
-
-    private String body() {
-        String result = "";
-        for (Rental rental : rentals) {
-            result += "\t" + rental.getMovie().getTitle() + "\t" +
-                    rental.amount() + "\n";
-        }
-        return result;
-    }
-
-    private String header() {
-        return "Rental Record for " + getName() + "\n";
-    }
-
     private int getFrequentRenterPoints() {
         int frequentRenterPoints = 0;
         for (Rental rental : rentals) {
@@ -94,4 +71,5 @@ public class Customer {
         }
         return totalAmount;
     }
+
 }
