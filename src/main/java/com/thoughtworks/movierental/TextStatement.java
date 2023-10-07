@@ -9,7 +9,7 @@ class TextStatement {
     private final List<Rental> rentals;
     private final String name;
 
-    public TextStatement(double totalAmount, int frequentRenterPoints, List<Rental> rentals, String name) {
+    public TextStatement(List<Rental> rentals, double totalAmount, int frequentRenterPoints, String name) {
         this.totalAmount = totalAmount;
         this.frequentRenterPoints = frequentRenterPoints;
         this.rentals = rentals;

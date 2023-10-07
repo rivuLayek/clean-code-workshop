@@ -20,47 +20,18 @@ public class Customer {
     }
 
     public String statement() {
-        return new TextStatement(getTotalAmount(), getFrequentRenterPoints(), Customer.this.rentals, getName()).generate();
+        return new TextStatement(rentals, getTotalAmount(), getFrequentRenterPoints(), getName()).generate();
     }
 
     public String htmlStatement() {
-        return "<!DOCTYPE html>\n" +
-                "<html lang=\"en\">\n" +
-                "<head>\n" +
-                "    <meta charset=\"UTF-8\" />\n" +
-                "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n" +
-                "    <title>Document</title>\n" +
-                "</head>\n" +
-                "<body>\n" +
-                htmlHeader() +
-                htmlBody() +
-                htmlFooter()+
-                "</body>\n" +
-                "</html>\n";
-    }
-
-    private String htmlFooter() {
-        return "<div>Amount owed is <b>" + getTotalAmount()+ "</b></div>\n" +
-                "<div>You earned <b>" + getFrequentRenterPoints() +"</b> frequent renter points</div>\n";
-    }
-
-    private String htmlBody() {
-        String result = "<table>\n";
-        for( Rental rental : rentals ) {
-            result += "<tr>\n<td>" + rental.getMovie().getTitle() + "&emsp;</td>\n<td>" + rental.amount() + "</td>\n</tr>\n";
-        }
-        return result + "</table>\n";
-    }
-
-    private String htmlHeader() {
-        return "<h1>Rental Record for <b>"+ getName() +"</b></h1>\n";
+        return new HtmlStatment(rentals, getTotalAmount(), getFrequentRenterPoints(), getName()).generate();
     }
 
     private int getFrequentRenterPoints() {
         int frequentRenterPoints = 0;
         for (Rental rental : rentals) {
-                frequentRenterPoints += rental.renterPoints();
-            }
+            frequentRenterPoints += rental.renterPoints();
+        }
         return frequentRenterPoints;
     }
 
