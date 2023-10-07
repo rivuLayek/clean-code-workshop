@@ -16,10 +16,13 @@ class CustomerTest {
         Rental secondRental = new Rental(secondMovie,5);
         Rental thirdRental = new Rental(thirdMovie,5);
 
-        Customer customer = new Customer("Virat Kohli");
-        customer.addRental(firstRental);
-        customer.addRental(secondRental);
-        customer.addRental(thirdRental);
+        RentalDetails rentalDetails = new RentalDetails();
+        rentalDetails.addRental(firstRental);
+        rentalDetails.addRental(secondRental);
+        rentalDetails.addRental(thirdRental);
+
+        Customer customer = new Customer("Virat Kohli", rentalDetails);
+
 
         String actualResponse = customer.statement();
         String expectedResponse = "Rental Record for Virat Kohli\n" +
@@ -41,10 +44,12 @@ class CustomerTest {
         Rental secondRental = new Rental(secondMovie,2);
         Rental thirdRental = new Rental(thirdMovie,2);
 
-        Customer customer = new Customer("Virat Kohli");
-        customer.addRental(firstRental);
-        customer.addRental(secondRental);
-        customer.addRental(thirdRental);
+        RentalDetails rentalDetails = new RentalDetails();
+        rentalDetails.addRental(firstRental);
+        rentalDetails.addRental(secondRental);
+        rentalDetails.addRental(thirdRental);
+
+        Customer customer = new Customer("Virat Kohli", rentalDetails);
 
         String actualResponse = customer.statement();
         String expectedResponse = "Rental Record for Virat Kohli\n" +
@@ -66,10 +71,12 @@ class CustomerTest {
         Rental secondRental = new Rental(secondMovie,5);
         Rental thirdRental = new Rental(thirdMovie,5);
 
-        Customer customer = new Customer("Virat Kohli");
-        customer.addRental(firstRental);
-        customer.addRental(secondRental);
-        customer.addRental(thirdRental);
+        RentalDetails rentalDetails = new RentalDetails();
+        rentalDetails.addRental(firstRental);
+        rentalDetails.addRental(secondRental);
+        rentalDetails.addRental(thirdRental);
+
+        Customer customer = new Customer("Virat Kohli", rentalDetails);
 
         String actualResponse = customer.htmlStatement();
         String expectedResponse = "<!DOCTYPE html>\n" +

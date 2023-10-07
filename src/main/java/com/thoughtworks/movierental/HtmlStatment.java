@@ -1,19 +1,13 @@
 package com.thoughtworks.movierental;
 
-import java.util.List;
-
 class HtmlStatment {
 
+    private final RentalDetails rentalDetails;
     private final String name;
-    private final List<Rental> rentals;
-    private final double totalAmount;
-    private final int frequentRenterPoints;
 
-    public HtmlStatment(List<Rental> rentals, double totalAmount, int frequentRenterPoints, String name) {
+    public HtmlStatment(RentalDetails rentalDetails, String name) {
+        this.rentalDetails = rentalDetails;
         this.name = name;
-        this.rentals = rentals;
-        this.totalAmount = totalAmount;
-        this.frequentRenterPoints = frequentRenterPoints;
     }
 
     public String generate() {
@@ -38,14 +32,14 @@ class HtmlStatment {
 
     private String htmlBody() {
         String result = "<table>\n";
-        for (Rental rental : rentals) {
+        for (Rental rental : rentalDetails.getRentals()) {
             result += "<tr>\n<td>" + rental.getMovie().getTitle() + "&emsp;</td>\n<td>" + rental.amount() + "</td>\n</tr>\n";
         }
         return result + "</table>\n";
     }
 
     private String htmlFooter() {
-        return "<div>Amount owed is <b>" + totalAmount + "</b></div>\n" +
-                "<div>You earned <b>" + frequentRenterPoints + "</b> frequent renter points</div>\n";
+        return "<div>Amount owed is <b>" + rentalDetails.getTotalAmount() + "</b></div>\n" +
+                "<div>You earned <b>" + rentalDetails.getFrequentRenterPoints() + "</b> frequent renter points</div>\n";
     }
 }

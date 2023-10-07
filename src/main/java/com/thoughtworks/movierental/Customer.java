@@ -1,18 +1,12 @@
 package com.thoughtworks.movierental;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Customer {
     private final String name;
-    private final List<Rental> rentals = new ArrayList<>();
+    private final RentalDetails rentalDetails;
 
-    public Customer(String name) {
+    public Customer(String name, RentalDetails rentalDetails) {
         this.name = name;
-    }
-
-    public void addRental(Rental arg) {
-        rentals.add(arg);
+        this.rentalDetails = rentalDetails;
     }
 
     public String getName() {
@@ -20,27 +14,13 @@ public class Customer {
     }
 
     public String statement() {
-        return new TextStatement(rentals, getTotalAmount(), getFrequentRenterPoints(), getName()).generate();
+        return new TextStatement(rentalDetails, getName()).generate();
     }
 
     public String htmlStatement() {
-        return new HtmlStatment(rentals, getTotalAmount(), getFrequentRenterPoints(), getName()).generate();
+        return new HtmlStatment(rentalDetails, getName()).generate();
     }
 
-    private int getFrequentRenterPoints() {
-        int frequentRenterPoints = 0;
-        for (Rental rental : rentals) {
-            frequentRenterPoints += rental.renterPoints();
-        }
-        return frequentRenterPoints;
-    }
 
-    private double getTotalAmount() {
-        double totalAmount = 0;
-        for (Rental rental : rentals) {
-            totalAmount += rental.amount();
-        }
-        return totalAmount;
-    }
 
 }
